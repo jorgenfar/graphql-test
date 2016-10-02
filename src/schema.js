@@ -10,7 +10,7 @@ import Person from './types/person';
 
 const { people } = data;
 
-const RootQueryType = new GraphQLObjectType({
+const Root = new GraphQLObjectType({
   name: 'RootQuery',
   fields: {
     person: {
@@ -27,7 +27,7 @@ const RootQueryType = new GraphQLObjectType({
 });
 
 const Schema = new GraphQLSchema({
-  query: RootQueryType,
+  query: Root,
 });
 
 export default Schema;
