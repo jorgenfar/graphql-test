@@ -1,41 +1,20 @@
 import {
   GraphQLSchema,
   GraphQLObjectType,
-  GraphQLString,
   GraphQLInt,
   GraphQLNonNull,
 } from 'graphql';
 
 import data from './data';
+import Person from './types/person';
 
 const { people } = data;
-
-const PersonType = new GraphQLObjectType({
-  name: 'Person',
-  fields: {
-    ssn: {
-      type: new GraphQLNonNull(GraphQLInt),
-      description: 'The person\'s social security number',
-      resolve: person => person.ssn,
-    },
-    name: {
-      type: GraphQLString,
-      description: 'The person\'s name',
-      resolve: person => person.name,
-    },
-    email: {
-      type: GraphQLString,
-      description: 'The person\'s email address',
-      resolve: person => person.email,
-    },
-  },
-});
 
 const RootQueryType = new GraphQLObjectType({
   name: 'RootQuery',
   fields: {
     person: {
-      type: PersonType,
+      type: Person,
       args: {
         ssn: {
           type: new GraphQLNonNull(GraphQLInt),
