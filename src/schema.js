@@ -2,8 +2,8 @@ import {
   GraphQLSchema,
   GraphQLObjectType,
   GraphQLString,
+  GraphQLList,
   GraphQLInt,
-  GraphQLNonNull,
 } from 'graphql';
 
 import data from './data';
@@ -16,24 +16,40 @@ const Root = new GraphQLObjectType({
   name: 'RootQuery',
   fields: {
     person: {
-      type: Person,
+      type: new GraphQLList(Person),
       args: {
         ssn: {
-          type: new GraphQLNonNull(GraphQLInt),
+          type: GraphQLInt,
+          description: 'The person\'s social security number',
+        },
+        name: {
+          type: GraphQLString,
+          description: 'The person\'s name',
         },
       },
-      resolve: (_, { ssn }) =>
-        people.find(person => person.ssn === ssn),
+      resolve: (_, { ssn, name }) => {
+        if (ssn) {
+          return people.filter(person => person.ssn === ssn);
+        }
+        if (name) {
+          return people.filter(person => person.name === name);
+        }
+        return people;
+      },
     },
     car: {
-      type: Car,
+      type: new GraphQLList(Car),
       args: {
         regnr: {
           type: GraphQLString,
         },
       },
-      resolve: (_, { regnr }) =>
-        cars.find(car => car.regnr === regnr),
+      resolve: (_, { regnr }) => {
+        if (regnr) {
+          return cars.filter(car => car.regnr === regnr);
+        }
+        return cars;
+      },
     },
   },
 });
