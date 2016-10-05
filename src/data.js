@@ -4,7 +4,7 @@ const data = {
       ssn: 1,
       name: 'Jørgen Faret',
       email: 'jorgen@gmail.com',
-      cars: [1],
+      cars: [0, 1, 2],
     },
     {
       ssn: 2,
