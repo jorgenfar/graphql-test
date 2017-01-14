@@ -1,4 +1,4 @@
-const data = {
+export default {
   people: [
     {
       ssn: 1,
@@ -40,5 +40,3 @@ const data = {
     },
   ],
 };
-
-export default data;
